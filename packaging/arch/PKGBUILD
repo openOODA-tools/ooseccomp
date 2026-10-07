@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=ooseccomp-bin
+_pkgname=ooseccomp
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Applies BPF seccomp filters restricting dangerous syscalls like ptrace and unshare."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/ooseccomp"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('ooseccomp')
+conflicts=('ooseccomp')
+source_x86_64=("${url}/releases/download/v${pkgver}/ooseccomp-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/ooseccomp-linux-x86_64" "${pkgdir}/usr/bin/ooseccomp"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/ooseccomp-uninstall"
+}
